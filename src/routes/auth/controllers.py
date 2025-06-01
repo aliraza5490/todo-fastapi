@@ -1,9 +1,9 @@
-from .validation import User, UserLogin
+from ...models.user import User, UserLogin
 from fastapi import status, HTTPException
 from sqlmodel import select, Session
 from ...utilities.auth import pwd_context, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 from datetime import timedelta
-from .validation import User as UserModel 
+from ...models.user import User as UserModel 
 
 class AuthController:
     @classmethod
@@ -42,8 +42,7 @@ class AuthController:
     
     @classmethod
     def protected(cls, user: User):
-        print(user)
-        return {"message": "Protected route accessed"}
+        return {"message": "Protected route accessed", user: user}
 
     @classmethod
     def login(cls, user: UserLogin, session: Session):

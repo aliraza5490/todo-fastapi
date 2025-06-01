@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from .controllers import AuthController
 from ...utilities.tags import Tags
-from .validation import User, UserLogin, UserCreate
+from ...models.user import User, UserLogin, UserCreate
 from ...utilities.auth import get_user_from_token
 from ...utilities.db import get_session
 

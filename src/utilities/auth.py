@@ -53,7 +53,7 @@ def get_user_from_token(
     """
 
     # Move this import inside the function to avoid circular imports
-    from ..routes.auth.validation import TokenData, User
+    from ..models.user import TokenData, User
     
 
     credentials_exception = HTTPException(
