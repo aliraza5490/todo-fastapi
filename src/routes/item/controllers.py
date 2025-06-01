@@ -36,17 +36,31 @@ class ItemController:
     @classmethod
     def update_item(self, item_id: int, item: ItemBase, user: User, session: Session):
         itemData = session.exec(select(Item).where(Item.id == item_id, Item.user_id == user.id)).first()
-        if itemData:
-            if itemData.name: itemData.name = item.name
-            if itemData.description: itemData.description = item.description
-            if itemData.is_done: itemData.is_done = item.is_done
-            session.add(itemData)
-            session.commit()
+        if not itemData:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Item with id {item_id} not found."
+            )
+        
+        # Only update fields that are provided in the request
+        update_data = item.model_dump(exclude_unset=True)
+        for key, value in update_data.items():
+            setattr(itemData, key, value)
+        
+        session.add(itemData)
+        session.commit()
+        session.refresh(itemData)
+        
         return {"item_name": itemData.name, "item_id": item_id}
 
     @classmethod
     def delete_item(self, item_id: int, user: User, session: Session):
         itemData = session.exec(select(Item).where(Item.id == item_id, Item.user_id == user.id)).first()
+        if not itemData:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Item with id {item_id} not found."
+            )
         session.delete(itemData)
         session.commit()
         return {"item_id": item_id}

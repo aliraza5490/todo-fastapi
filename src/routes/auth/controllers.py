@@ -42,7 +42,7 @@ class AuthController:
     
     @classmethod
     def protected(cls, user: User):
-        return {"message": "Protected route accessed", user: user}
+        return {"message": "Protected route accessed", "user": user.model_dump(exclude="hashed_password")}
 
     @classmethod
     def login(cls, user: UserLogin, session: Session):
