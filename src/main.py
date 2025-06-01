@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routes import api_router
 from contextlib import asynccontextmanager
 from .utilities.db import get_session, create_db_and_tables
+from .settings import settings
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -25,16 +27,9 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-origins = [
-    "http://localhost.tiangolo.com",
-    "http://localhost:5173",
-    "http://localhost",
-    "http://localhost:8080",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.all_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

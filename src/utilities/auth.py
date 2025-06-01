@@ -4,14 +4,15 @@ from fastapi import HTTPException, status, Depends
 from typing import Optional
 from datetime import datetime, timedelta, timezone
 from sqlmodel import select
+from ..settings import settings
 import jwt
 from .db import get_session
 
 # These would be imported from your config or main module
 # You might want to move these to a dedicated config module
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 # Password hashing

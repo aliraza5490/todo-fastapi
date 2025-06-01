@@ -1,7 +1,8 @@
 from ...models.user import User, UserLogin
 from fastapi import status, HTTPException
 from sqlmodel import select, Session
-from ...utilities.auth import pwd_context, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+from ...utilities.auth import pwd_context, create_access_token
+from ...settings import settings
 from datetime import timedelta
 from ...models.user import User as UserModel 
 
@@ -65,7 +66,7 @@ class AuthController:
                 detail="Incorrect username or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
             data={"email": user.email}, expires_delta=access_token_expires
         )
