@@ -22,7 +22,7 @@ def read_item(item_id: int, user: User = Depends(get_user_from_token), session: 
 def read_all_item(q: Union[str, None] = None, user: User = Depends(get_user_from_token), session: Session = Depends(get_session)):
     return ItemController.get_all_items(user, session, q)
 
-@items_router.patch("/{item_id}")
+@items_router.put("/{item_id}")
 def update_item(item_id: int, item: ItemBase, user: User = Depends(get_user_from_token), session: Session = Depends(get_session)):
     return ItemController.update_item(item_id, item, user, session)
 
