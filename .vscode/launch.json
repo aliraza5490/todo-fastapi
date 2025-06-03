@@ -11,7 +11,8 @@
             "module": "uvicorn",
             "args": [
                 "app.main:app",
-                "--reload"
+                "--reload",
+                "--no-server-header"
             ],
             "jinja": true
         }
