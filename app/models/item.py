@@ -1,6 +1,7 @@
 from typing import Annotated, Optional, ForwardRef
 from pydantic import StringConstraints
 from sqlmodel import SQLModel, Field, Relationship
+from uuid import UUID, uuid4
 
 class ItemBase(SQLModel):
     name: Annotated[str, StringConstraints(min_length=2, max_length=100)]
@@ -8,8 +9,8 @@ class ItemBase(SQLModel):
     is_done: bool
 
 class Item(ItemBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int | None = Field(default=None, foreign_key="user.id")
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
+    user_id: UUID | None = Field(default=None, foreign_key="user.id")
     user: "User" = Relationship(back_populates="items")
 
 from .user import User

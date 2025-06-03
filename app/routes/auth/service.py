@@ -6,7 +6,7 @@ from ...settings import settings
 from datetime import timedelta
 from ...models.user import User as UserModel 
 
-class AuthController:
+class AuthService:
     @classmethod
     def register(cls, user: User, session: Session):
         # Check if user with this email already exists

@@ -1,9 +1,10 @@
 from sqlmodel import create_engine, Session, SQLModel
 
+from ..settings import settings
 
 # SQLModel setup
-DATABASE_URL = "sqlite:///./todo_app.db"
-engine = create_engine(DATABASE_URL, echo=True)
+DATABASE_URL = settings.SQLALCHEMY_DATABASE_URI
+engine = create_engine(str(DATABASE_URL), echo=True)
 
 # Create tables on startup
 def create_db_and_tables():

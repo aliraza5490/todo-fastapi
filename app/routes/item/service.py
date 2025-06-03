@@ -4,7 +4,7 @@ from ...models.item import Item, ItemBase
 from sqlmodel import Session, select
 from ...models.user import User
 
-class ItemController:
+class ItemService:
     @classmethod
     def get_item(self, item_id: int, user: User, session: Session):
         itemData = session.exec(select(Item).where(Item.id == item_id, Item.user_id == user.id)).first()
