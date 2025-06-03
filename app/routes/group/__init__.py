@@ -6,14 +6,9 @@ from ...utilities.auth import get_user_from_token
 from ...models.user import User
 from sqlmodel import Session, SQLModel
 from ...utilities.db import get_session
-from ...models.group import GroupBase
+from ...models.group import GroupBase, GroupInvite
 from .service import GroupService
-from pydantic import EmailStr
 
-# Group invitation model
-class GroupInvite(SQLModel):
-    email: EmailStr
-    message: Optional[str] = None
 
 group_router = APIRouter(prefix="/groups", tags=[Tags.groups])
 
