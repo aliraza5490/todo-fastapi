@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import api_router
+from .routes.api_router import api_router
 from contextlib import asynccontextmanager
 from .utilities.db import get_session, create_db_and_tables
 from .settings import settings
